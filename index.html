@@ -10,31 +10,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap');
 
 :root{
-    --bg:#070b10;
-    --bg-soft:#0b1118;
-    --surface:#0f1721;
-    --surface-2:#121c27;
-    --surface-3:#17222f;
+    --bg:#070707;
+    --bg-soft:#0c0c0c;
+    --surface:#11100e;
+    --surface-2:#171512;
+    --surface-3:#211e18;
 
     --line:rgba(255,255,255,.075);
-    --line-strong:rgba(255,255,255,.12);
+    --line-strong:rgba(255,255,255,.13);
 
-    --text:#f5f7fa;
-    --text-soft:#c7d0da;
-    --muted:#7f8b99;
+    --text:#f7f5ef;
+    --text-soft:#d8d2c5;
+    --muted:#8d887d;
 
-    --brand:#91a9bf;
-    --brand-light:#c5d4e1;
+    --brand:#c7a85a;
+    --brand-light:#f1dfae;
 
-    --green:#6e9d84;
-    --green-light:#9cc9ae;
+    --gold:#b99545;
+    --gold-light:#e2c878;
+    --gold-dark:#80652c;
 
-    --gold:#aa9b6d;
+    --green:#6e987e;
+    --green-light:#a8d0b6;
 
     --danger:#a66f78;
 
     --shadow:
-        0 30px 80px rgba(0,0,0,.42);
+        0 30px 80px rgba(0,0,0,.52);
 
     --radius-xl:24px;
     --radius-lg:18px;
@@ -60,19 +62,19 @@ body{
     background:
         radial-gradient(
             circle at 50% -10%,
-            rgba(145,169,191,.13),
+            rgba(199,168,90,.15),
             transparent 34%
         ),
         radial-gradient(
             circle at 5% 55%,
-            rgba(110,157,132,.035),
+            rgba(185,149,69,.045),
             transparent 25%
         ),
         linear-gradient(
             145deg,
-            #060a0f 0%,
-            #0a1017 50%,
-            #070b10 100%
+            #050505 0%,
+            #0c0b09 50%,
+            #070707 100%
         );
 
     overflow-x:hidden;
@@ -86,12 +88,12 @@ body::before{
 
     background:
         linear-gradient(
-            rgba(255,255,255,.012) 1px,
+            rgba(255,255,255,.009) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(255,255,255,.012) 1px,
+            rgba(255,255,255,.009) 1px,
             transparent 1px
         );
 
@@ -124,7 +126,7 @@ body::after{
     background:
         radial-gradient(
             circle,
-            rgba(145,169,191,.075),
+            rgba(199,168,90,.08),
             transparent 67%
         );
 
@@ -133,6 +135,7 @@ body::after{
     pointer-events:none;
     z-index:0;
 }
+
 
 /* =========================
    PARTICLES
@@ -156,10 +159,10 @@ body::after{
 
     border-radius:50%;
 
-    background:rgba(197,212,225,.22);
+    background:rgba(226,200,120,.22);
 
     box-shadow:
-        0 0 10px rgba(145,169,191,.15);
+        0 0 10px rgba(199,168,90,.18);
 
     animation:
         floatParticle linear infinite;
@@ -187,6 +190,7 @@ body::after{
     }
 }
 
+
 /* =========================
    APP
 ========================= */
@@ -201,6 +205,7 @@ body::after{
 
     padding-bottom:40px;
 }
+
 
 /* =========================
    HEADER
@@ -236,20 +241,31 @@ header{
     background:
         linear-gradient(
             145deg,
-            rgba(197,212,225,.16),
-            rgba(145,169,191,.035)
+            rgba(226,200,120,.16),
+            rgba(185,149,69,.035)
         );
 
-    border:1px solid rgba(197,212,225,.14);
+    border:1px solid rgba(226,200,120,.18);
 
     color:var(--brand-light);
 
-    font-size:18px;
-    font-weight:900;
-
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.07),
-        0 12px 30px rgba(0,0,0,.22);
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 12px 30px rgba(0,0,0,.3),
+        0 0 22px rgba(199,168,90,.08);
+
+    overflow:hidden;
+}
+
+.brand-mark img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    border-radius:inherit;
 }
 
 .brand-text{
@@ -291,11 +307,12 @@ header{
 
     border-radius:50%;
 
-    background:var(--green);
+    background:var(--gold);
 
     box-shadow:
-        0 0 12px rgba(110,157,132,.55);
+        0 0 12px rgba(199,168,90,.6);
 }
+
 
 /* =========================
    SCREENS
@@ -324,6 +341,7 @@ header{
     }
 }
 
+
 /* =========================
    PANEL
 ========================= */
@@ -341,8 +359,8 @@ header{
     background:
         linear-gradient(
             145deg,
-            rgba(18,28,39,.94),
-            rgba(10,16,23,.94)
+            rgba(23,21,18,.96),
+            rgba(10,10,9,.96)
         );
 
     border:1px solid var(--line);
@@ -374,7 +392,7 @@ header{
         linear-gradient(
             90deg,
             transparent,
-            rgba(197,212,225,.18),
+            rgba(226,200,120,.25),
             transparent
         );
 }
@@ -397,7 +415,7 @@ header{
     background:
         radial-gradient(
             circle,
-            rgba(145,169,191,.06),
+            rgba(199,168,90,.07),
             transparent 70%
         );
 
@@ -405,12 +423,13 @@ header{
 }
 
 .panel:hover{
-    border-color:rgba(197,212,225,.11);
+    border-color:rgba(226,200,120,.13);
 
     box-shadow:
-        0 35px 90px rgba(0,0,0,.48),
+        0 35px 90px rgba(0,0,0,.56),
         inset 0 1px 0 rgba(255,255,255,.04);
 }
+
 
 /* =========================
    TYPOGRAPHY
@@ -446,6 +465,7 @@ h2{
     font-size:13px;
 }
 
+
 /* =========================
    SECTION HEADER
 ========================= */
@@ -478,9 +498,9 @@ h2{
 
     border-radius:9px;
 
-    background:rgba(145,169,191,.075);
+    background:rgba(199,168,90,.075);
 
-    border:1px solid rgba(145,169,191,.11);
+    border:1px solid rgba(199,168,90,.13);
 
     color:var(--brand-light);
 
@@ -491,6 +511,7 @@ h2{
     color:var(--muted);
     font-size:11px;
 }
+
 
 /* =========================
    WORD LIST
@@ -508,7 +529,7 @@ h2{
 
     scrollbar-width:thin;
     scrollbar-color:
-        rgba(145,169,191,.2)
+        rgba(199,168,90,.25)
         transparent;
 }
 
@@ -540,7 +561,7 @@ h2{
         rgba(255,255,255,.028);
 
     border-color:
-        rgba(145,169,191,.13);
+        rgba(199,168,90,.14);
 
     transform:translateY(-1px);
 }
@@ -552,7 +573,7 @@ h2{
 
     text-align:center;
 
-    color:#667484;
+    color:#766d5d;
 
     font-size:11px;
     font-weight:800;
@@ -579,6 +600,7 @@ h2{
     white-space:nowrap;
 }
 
+
 /* =========================
    INPUTS
 ========================= */
@@ -597,7 +619,7 @@ input{
     border:1px solid rgba(255,255,255,.075);
 
     background:
-        rgba(5,10,15,.58);
+        rgba(5,5,4,.64);
 
     color:var(--text);
 
@@ -610,25 +632,26 @@ input{
 }
 
 input::placeholder{
-    color:#586574;
+    color:#5e5a52;
 }
 
 input:hover{
     border-color:
-        rgba(145,169,191,.16);
+        rgba(199,168,90,.17);
 }
 
 input:focus{
     background:
-        rgba(8,14,21,.8);
+        rgba(12,11,9,.88);
 
     border-color:
-        rgba(145,169,191,.38);
+        rgba(199,168,90,.42);
 
     box-shadow:
-        0 0 0 3px rgba(145,169,191,.065),
+        0 0 0 3px rgba(199,168,90,.065),
         0 10px 25px rgba(0,0,0,.12);
 }
+
 
 /* =========================
    BUTTONS
@@ -661,8 +684,8 @@ input:focus{
     background:
         linear-gradient(
             145deg,
-            rgba(25,37,50,.88),
-            rgba(15,23,32,.88)
+            rgba(35,31,23,.9),
+            rgba(16,15,13,.9)
         );
 
     color:var(--text-soft);
@@ -675,7 +698,7 @@ input:focus{
 
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,.035),
-        0 7px 18px rgba(0,0,0,.13);
+        0 7px 18px rgba(0,0,0,.18);
 
     transition:
         transform .13s ease,
@@ -688,17 +711,17 @@ input:focus{
     transform:translateY(-1px);
 
     border-color:
-        rgba(197,212,225,.18);
+        rgba(226,200,120,.22);
 
     background:
         linear-gradient(
             145deg,
-            rgba(29,43,57,.95),
-            rgba(17,27,37,.95)
+            rgba(45,39,28,.95),
+            rgba(19,18,15,.95)
         );
 
     box-shadow:
-        0 12px 28px rgba(0,0,0,.22),
+        0 12px 28px rgba(0,0,0,.25),
         inset 0 1px 0 rgba(255,255,255,.045);
 }
 
@@ -712,49 +735,85 @@ input:focus{
     background:
         linear-gradient(
             145deg,
-            rgba(145,169,191,.31),
-            rgba(114,141,166,.17)
+            rgba(73,156,102,.34),
+            rgba(42,111,69,.2)
         );
 
     border-color:
-        rgba(145,169,191,.29);
+        rgba(106,190,132,.38);
 
-    color:#edf3f7;
+    color:#eaffef;
 
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.08),
-        0 9px 26px rgba(0,0,0,.2);
+        inset 0 1px 0 rgba(255,255,255,.1),
+        0 9px 26px rgba(0,0,0,.24),
+        0 0 18px rgba(73,156,102,.08);
 }
 
 .btn.primary:hover{
     background:
         linear-gradient(
             145deg,
-            rgba(145,169,191,.4),
-            rgba(114,141,166,.22)
+            rgba(83,174,113,.45),
+            rgba(47,124,77,.27)
         );
 
     border-color:
-        rgba(197,212,225,.35);
+        rgba(132,210,154,.5);
+}
+
+.btn.reset{
+    color:#f0d99a;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(181,139,57,.25),
+            rgba(105,79,31,.15)
+        );
+
+    border-color:
+        rgba(214,173,79,.25);
+}
+
+.btn.reset:hover{
+    border-color:
+        rgba(226,194,111,.45);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(196,153,64,.34),
+            rgba(118,89,35,.2)
+        );
 }
 
 .btn.danger{
-    color:#c59ca2;
+    color:#f0a6ad;
 
     background:
-        rgba(80,48,55,.25);
+        linear-gradient(
+            145deg,
+            rgba(158,55,67,.28),
+            rgba(91,35,43,.18)
+        );
 
     border-color:
-        rgba(166,111,120,.16);
+        rgba(201,87,99,.28);
 }
 
 .btn.danger:hover{
     border-color:
-        rgba(166,111,120,.3);
+        rgba(225,105,117,.5);
 
     background:
-        rgba(90,52,60,.32);
+        linear-gradient(
+            145deg,
+            rgba(174,62,75,.38),
+            rgba(103,38,48,.24)
+        );
 }
+
 
 /* =========================
    NOTICE
@@ -772,10 +831,10 @@ input:focus{
     border-radius:12px;
 
     background:
-        rgba(145,169,191,.035);
+        rgba(199,168,90,.035);
 
     border:1px solid
-        rgba(145,169,191,.075);
+        rgba(199,168,90,.08);
 
     color:var(--muted);
 
@@ -798,13 +857,14 @@ input:focus{
     border-radius:50%;
 
     background:
-        rgba(145,169,191,.09);
+        rgba(199,168,90,.1);
 
     color:var(--brand-light);
 
     font-size:10px;
     font-weight:900;
 }
+
 
 /* =========================
    GAME TOP
@@ -834,10 +894,10 @@ input:focus{
     border-radius:999px;
 
     background:
-        rgba(145,169,191,.045);
+        rgba(199,168,90,.045);
 
     border:1px solid
-        rgba(145,169,191,.075);
+        rgba(199,168,90,.08);
 
     color:var(--muted);
 
@@ -895,6 +955,7 @@ input:focus{
     }
 }
 
+
 /* =========================
    PLAYER ID
 ========================= */
@@ -949,13 +1010,14 @@ input:focus{
 
 .player-id input:focus{
     border-color:
-        rgba(110,157,132,.42);
+        rgba(199,168,90,.46);
 
     box-shadow:
         0 0 0 3px
-        rgba(110,157,132,.065),
+        rgba(199,168,90,.07),
         0 10px 28px rgba(0,0,0,.15);
 }
+
 
 /* =========================
    BOARD
@@ -992,13 +1054,13 @@ input:focus{
     border-radius:12px;
 
     border:1px solid
-        rgba(197,212,225,.13);
+        rgba(226,200,120,.13);
 
     background:
         linear-gradient(
             145deg,
-            rgba(19,29,40,.92),
-            rgba(10,16,23,.94)
+            rgba(25,22,17,.94),
+            rgba(10,10,9,.96)
         );
 
     color:var(--text);
@@ -1010,7 +1072,7 @@ input:focus{
 
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,.035),
-        0 7px 18px rgba(0,0,0,.16);
+        0 7px 18px rgba(0,0,0,.2);
 
     transition:
         transform .15s ease,
@@ -1032,7 +1094,7 @@ input:focus{
             120px circle at
             var(--mx,50%)
             var(--my,50%),
-            rgba(197,212,225,.08),
+            rgba(226,200,120,.09),
             transparent 68%
         );
 
@@ -1047,49 +1109,80 @@ input:focus{
 
 .tile.filled{
     border-color:
-        rgba(197,212,225,.34);
+        rgba(226,200,120,.34);
 
     background:
-        rgba(20,31,42,.98);
+        rgba(27,24,18,.98);
 }
 
 .tile.correct{
     background:
         linear-gradient(
             145deg,
-            #719d86,
-            #5f8e76
+            #78b892,
+            #5fa77a
         );
 
-    border-color:#719d86;
+    border-color:#86c39b;
 
-    color:#07110c;
+    color:#08130d;
 }
 
 .tile.present{
     background:
         linear-gradient(
             145deg,
-            #ad9e70,
-            #97895f
+            #e0bd5e,
+            #c99d3d
         );
 
-    border-color:#ad9e70;
+    border-color:#e5c66f;
 
-    color:#151207;
+    color:#171207;
 }
 
 .tile.absent{
     background:
         linear-gradient(
             145deg,
-            #27323e,
-            #202a34
+            #3a3530,
+            #2b2722
         );
 
-    border-color:#27323e;
+    border-color:#4b443b;
 
-    color:#82909d;
+    color:#aaa092;
+}
+
+/* =========================
+   TILE FLIP REVEAL
+========================= */
+
+.tile.reveal{
+    animation:
+        tileFlip .6s
+        ease-in-out
+        both;
+    transform-style:preserve-3d;
+    backface-visibility:hidden;
+}
+
+@keyframes tileFlip{
+    0%{
+        transform:rotateX(0deg);
+    }
+
+    49%{
+        transform:rotateX(90deg);
+    }
+
+    50%{
+        transform:rotateX(90deg);
+    }
+
+    100%{
+        transform:rotateX(0deg);
+    }
 }
 
 .tile.correct.win-animation{
@@ -1157,6 +1250,7 @@ input:focus{
     }
 }
 
+
 /* =========================
    KEYBOARD
 ========================= */
@@ -1198,11 +1292,11 @@ input:focus{
     background:
         linear-gradient(
             145deg,
-            #17212c,
-            #101820
+            #201d18,
+            #12110f
         );
 
-    color:#c6d0da;
+    color:#d1c8b8;
 
     font-family:inherit;
 
@@ -1217,7 +1311,7 @@ input:focus{
 
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,.03),
-        0 5px 13px rgba(0,0,0,.16);
+        0 5px 13px rgba(0,0,0,.2);
 
     transition:
         transform .08s ease,
@@ -1238,7 +1332,7 @@ input:focus{
             110px circle at
             var(--mx,50%)
             var(--my,50%),
-            rgba(197,212,225,.08),
+            rgba(226,200,120,.1),
             transparent 68%
         );
 
@@ -1251,13 +1345,13 @@ input:focus{
     transform:translateY(-1px);
 
     border-color:
-        rgba(197,212,225,.15);
+        rgba(226,200,120,.18);
 
     background:
         linear-gradient(
             145deg,
-            #1b2835,
-            #14202a
+            #29251e,
+            #171511
         );
 }
 
@@ -1287,18 +1381,19 @@ input:focus{
 }
 
 .key.present{
-    background:#716841;
+    background:#76653a;
     border-color:
-        rgba(170,155,109,.3);
+        rgba(199,168,90,.3);
 
-    color:#e9dfbd;
+    color:#f0dfb4;
 }
 
 .key.absent{
-    background:#17212b;
+    background:#1b1916;
 
-    color:#63717d;
+    color:#6d6559;
 }
+
 
 /* =========================
    RESULT
@@ -1322,17 +1417,17 @@ input:focus{
     border-radius:18px;
 
     background:
-        rgba(110,157,132,.09);
+        rgba(199,168,90,.09);
 
     border:1px solid
-        rgba(110,157,132,.17);
+        rgba(199,168,90,.18);
 
-    color:var(--green-light);
+    color:var(--brand-light);
 
     font-size:25px;
 
     box-shadow:
-        0 15px 35px rgba(0,0,0,.2);
+        0 15px 35px rgba(0,0,0,.25);
 }
 
 .result .big{
@@ -1360,6 +1455,7 @@ input:focus{
     color:var(--text-soft);
 }
 
+
 /* =========================
    WINNER IDS
 ========================= */
@@ -1374,18 +1470,18 @@ input:focus{
     background:
         linear-gradient(
             145deg,
-            rgba(110,157,132,.07),
-            rgba(110,157,132,.025)
+            rgba(199,168,90,.075),
+            rgba(199,168,90,.025)
         );
 
     border:1px solid
-        rgba(110,157,132,.15);
+        rgba(199,168,90,.16);
 }
 
 .winner-ids-title{
     margin-bottom:11px;
 
-    color:var(--green-light);
+    color:var(--brand-light);
 
     font-size:13px;
     font-weight:900;
@@ -1401,12 +1497,12 @@ input:focus{
     border-radius:9px;
 
     background:
-        rgba(9,16,22,.8);
+        rgba(9,9,8,.84);
 
     border:1px solid
-        rgba(110,157,132,.16);
+        rgba(199,168,90,.18);
 
-    color:#cfe4d6;
+    color:#e4d5ae;
 
     direction:ltr;
 
@@ -1448,6 +1544,7 @@ input:focus{
     }
 }
 
+
 /* =========================
    RIPPLE
 ========================= */
@@ -1464,7 +1561,7 @@ input:focus{
         ease-out;
 
     background:
-        rgba(197,212,225,.18);
+        rgba(226,200,120,.18);
 
     pointer-events:none;
 }
@@ -1475,6 +1572,7 @@ input:focus{
         opacity:0;
     }
 }
+
 
 /* =========================
    WIN PARTICLES
@@ -1492,11 +1590,11 @@ input:focus{
 
     z-index:20;
 
-    background:var(--green);
+    background:var(--gold-light);
 
     box-shadow:
         0 0 12px
-        rgba(110,157,132,.65);
+        rgba(226,200,120,.65);
 
     animation:
         winParticle
@@ -1527,6 +1625,7 @@ input:focus{
             scale(.2);
     }
 }
+
 
 /* =========================
    MOBILE
@@ -1691,7 +1790,12 @@ input:focus{
     <div class="header-brand">
 
         <div class="brand-mark">
-            ع
+
+            <img
+                src="https://media.discordapp.net/attachments/1133427675705397250/1401388815754727496/512.gif?ex=6a9ad34a&is=6a9981ca&hm=18296c997dc83ee990785b67dc5546e65bc4a13d342ce26961690c4e2d98e06d&"
+                alt="عرب بيور"
+            >
+
         </div>
 
         <div class="brand-text">
@@ -1817,7 +1921,7 @@ input:focus{
     <div class="game-top">
 
         <h2>
-            لعبة تخمين الكلمات 
+            لعبة تخمين الكلمات
         </h2>
 
         <div
@@ -1845,7 +1949,7 @@ input:focus{
             id="playerId"
             type="text"
             maxlength="50"
-            placeholder="اأيدي الشخص المشارك"
+            placeholder="أيدي الشخص المشارك"
             autocomplete="off"
             spellcheck="false"
         >
@@ -1876,7 +1980,7 @@ input:focus{
 
         <button
             id="restartBtn"
-            class="btn"
+            class="btn reset"
         >
             ↩ إعادة إعداد اللعبة
         </button>
@@ -2994,12 +3098,17 @@ function paintResult(result){
     [...row.children].forEach(
         (tile,i) => {
 
+            const state =
+                result[i];
+
+
             tile.classList.remove(
                 "filled",
                 "correct",
                 "present",
                 "absent",
-                "win-animation"
+                "win-animation",
+                "reveal"
             );
 
 
@@ -3007,8 +3116,31 @@ function paintResult(result){
                 chars[i];
 
 
+            /*
+             * نفس فكرة الوِرد:
+             * يبدأ المربع بلونه الطبيعي،
+             * ينغلق بالفلب، وعند منتصف الفلب
+             * يظهر لون النتيجة، ثم ينفتح.
+             */
+            tile.style.animationDelay =
+                `${i * 120}ms`;
+
+            void tile.offsetWidth;
+
             tile.classList.add(
-                result[i]
+                "reveal"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    tile.classList.add(
+                        state
+                    );
+
+                },
+                i * 120 + 300
             );
 
         }
@@ -3264,6 +3396,13 @@ function submitGuess(){
                     keyState =
                         {};
 
+                    /*
+                     * إصلاح مشكلة ID:
+                     * تفريغ ID اللاعب السابق
+                     * قبل بدء الكلمة الجديدة.
+                     */
+                    playerId.value = "";
+
                     buildBoard();
 
                     buildKeyboard();
@@ -3271,7 +3410,16 @@ function submitGuess(){
                     updateProgress();
 
                     setMessage(
-                        "كلمة جديدة. بالتوفيق!"
+                        "كلمة جديدة. أدخل ID الخاص بك ثم ابدأ بالتخمين."
+                    );
+
+                    /*
+                     * إعطاء التركيز مباشرة لخانة ID
+                     * الخاصة بالكلمة الجديدة.
+                     */
+                    setTimeout(
+                        () => playerId.focus(),
+                        150
                     );
 
                 }else{
@@ -3335,6 +3483,13 @@ function submitGuess(){
                     keyState =
                         {};
 
+                    /*
+                     * إصلاح مشكلة ID:
+                     * تفريغ ID اللاعب السابق
+                     * قبل الانتقال للكلمة التالية.
+                     */
+                    playerId.value = "";
+
                     buildBoard();
 
                     buildKeyboard();
@@ -3342,7 +3497,15 @@ function submitGuess(){
                     updateProgress();
 
                     setMessage(
-                        "ننتقل للكلمة التالية."
+                        "ننتقل للكلمة التالية. أدخل ID اللاعب الجديد."
+                    );
+
+                    /*
+                     * التركيز على خانة ID الجديدة.
+                     */
+                    setTimeout(
+                        () => playerId.focus(),
+                        150
                     );
 
                 }else{
