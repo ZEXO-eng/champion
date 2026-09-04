@@ -1252,150 +1252,6 @@ input:focus{
 
 
 /* =========================
-   KEYBOARD
-========================= */
-
-.keyboard{
-    width:min(575px,100%);
-
-    margin:22px auto 0;
-
-    display:grid;
-
-    gap:7px;
-}
-
-.key-row{
-    display:flex;
-
-    justify-content:center;
-
-    gap:5px;
-}
-
-.key{
-    position:relative;
-    overflow:hidden;
-
-    min-width:
-        clamp(27px,7vw,44px);
-
-    height:50px;
-
-    padding:0 5px;
-
-    border-radius:9px;
-
-    border:1px solid
-        rgba(255,255,255,.065);
-
-    background:
-        linear-gradient(
-            145deg,
-            #201d18,
-            #12110f
-        );
-
-    color:#d1c8b8;
-
-    font-family:inherit;
-
-    font-size:
-        clamp(12px,2.8vw,15px);
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    user-select:none;
-
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.03),
-        0 5px 13px rgba(0,0,0,.2);
-
-    transition:
-        transform .08s ease,
-        border-color .18s ease,
-        background .18s ease;
-}
-
-.key::after{
-    content:"";
-
-    position:absolute;
-    inset:0;
-
-    pointer-events:none;
-
-    background:
-        radial-gradient(
-            110px circle at
-            var(--mx,50%)
-            var(--my,50%),
-            rgba(226,200,120,.1),
-            transparent 68%
-        );
-
-    opacity:0;
-
-    transition:opacity .18s;
-}
-
-.key:hover{
-    transform:translateY(-1px);
-
-    border-color:
-        rgba(226,200,120,.18);
-
-    background:
-        linear-gradient(
-            145deg,
-            #29251e,
-            #171511
-        );
-}
-
-.key:hover::after{
-    opacity:1;
-}
-
-.key:active{
-    transform:
-        translateY(2px)
-        scale(.95);
-}
-
-.key.wide{
-    min-width:
-        clamp(55px,12vw,72px);
-
-    font-size:11px;
-}
-
-.key.correct{
-    background:#526f61;
-    border-color:
-        rgba(110,157,132,.3);
-
-    color:#d5e8dc;
-}
-
-.key.present{
-    background:#76653a;
-    border-color:
-        rgba(199,168,90,.3);
-
-    color:#f0dfb4;
-}
-
-.key.absent{
-    background:#1b1916;
-
-    color:#6d6559;
-}
-
-
-/* =========================
    RESULT
 ========================= */
 
@@ -1963,15 +1819,6 @@ input:focus{
         id="board"
         class="board"
     ></div>
-
-
-    <!-- KEYBOARD -->
-
-    <div
-        id="keyboard"
-        class="keyboard"
-    ></div>
-
 
     <div
         class="actions"
@@ -2581,8 +2428,6 @@ function startGame(){
 
     buildBoard();
 
-    buildKeyboard();
-
     updateProgress();
 
 
@@ -2665,94 +2510,7 @@ function buildBoard(){
     }
 
 }
-
-
-/* =========================
-   KEYBOARD
-========================= */
-
-function buildKeyboard(){
-
-    keyboard.innerHTML =
-        "";
-
-
-    ARABIC_ROWS.forEach(
-        (letters,rowIndex) => {
-
-            const row =
-                document.createElement("div");
-
-            row.className =
-                "key-row";
-
-
-            letters.forEach(
-                letter => {
-
-                    row.appendChild(
-                        makeKey(
-                            letter,
-                            letter,
-                            false
-                        )
-                    );
-
-                }
-            );
-
-
-            if(rowIndex === 2){
-
-                const controls =
-                    document.createElement("div");
-
-                controls.className =
-                    "key-row";
-
-                controls.style.marginTop =
-                    "0";
-
-
-                controls.appendChild(
-                    makeKey(
-                        "⌫ حذف",
-                        "backspace",
-                        true
-                    )
-                );
-
-
-                controls.appendChild(
-                    makeKey(
-                        "تأكيد ↵",
-                        "enter",
-                        true
-                    )
-                );
-
-
-                keyboard.appendChild(
-                    row
-                );
-
-                keyboard.appendChild(
-                    controls
-                );
-
-                return;
-            }
-
-
-            keyboard.appendChild(
-                row
-            );
-
-        }
-    );
-
-}
-
+    
 
 /* =========================
    MAKE KEY
@@ -2999,86 +2757,6 @@ function evaluateGuess(
 
 }
 
-
-/* =========================
-   KEYBOARD STATE
-========================= */
-
-function updateKeyboard(
-    guess,
-    result
-){
-
-    const priority = {
-
-        absent:1,
-        present:2,
-        correct:3
-
-    };
-
-
-    [...guess].forEach(
-        (ch,i) => {
-
-            const next =
-                result[i];
-
-
-            if(
-                (
-                    priority[next] ||
-                    0
-                ) >
-                (
-                    priority[
-                        keyState[ch]
-                    ] ||
-                    0
-                )
-            ){
-
-                keyState[ch] =
-                    next;
-
-            }
-
-        }
-    );
-
-
-    document
-        .querySelectorAll(".key")
-        .forEach(
-            btn => {
-
-                const state =
-                    keyState[
-                        btn.dataset.key
-                    ];
-
-
-                btn.classList.remove(
-                    "correct",
-                    "present",
-                    "absent"
-                );
-
-
-                if(state){
-
-                    btn.classList.add(
-                        state
-                    );
-
-                }
-
-            }
-        );
-
-}
-
-
 /* =========================
    PAINT RESULT
 ========================= */
@@ -3319,12 +2997,6 @@ function submitGuess(){
     paintResult(result);
 
 
-    updateKeyboard(
-        currentGuess,
-        result
-    );
-
-
     const solved =
         result.every(
             x => x === "correct"
@@ -3404,8 +3076,6 @@ function submitGuess(){
                     playerId.value = "";
 
                     buildBoard();
-
-                    buildKeyboard();
 
                     updateProgress();
 
@@ -3491,8 +3161,6 @@ function submitGuess(){
                     playerId.value = "";
 
                     buildBoard();
-
-                    buildKeyboard();
 
                     updateProgress();
 
