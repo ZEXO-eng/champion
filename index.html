@@ -1030,7 +1030,7 @@ input:focus{
 
     display:grid;
 
-    gap:8px;
+    gap:var(--board-gap,8px);
 }
 
 .row{
@@ -1039,7 +1039,7 @@ input:focus{
     grid-template-columns:
         repeat(var(--word-length),1fr);
 
-    gap:8px;
+    gap:var(--board-gap,8px);
 }
 
 .tile{
@@ -2105,6 +2105,21 @@ function showScreen(screen){
         behavior:"smooth"
     });
 
+
+    if(screen === gameScreen){
+
+        requestAnimationFrame(
+            () => {
+
+                requestAnimationFrame(
+                    fitBoardToScreen
+                );
+
+            }
+        );
+
+    }
+
 }
 
 
@@ -2464,6 +2479,16 @@ function buildBoard(){
     );
 
 
+    board.style.removeProperty(
+        "width"
+    );
+
+    board.style.setProperty(
+        "--board-gap",
+        "8px"
+    );
+
+
     for(
         let r=0;
         r<attemptsLimit;
@@ -2509,8 +2534,219 @@ function buildBoard(){
 
     }
 
+
+    requestAnimationFrame(
+        () => {
+
+            requestAnimationFrame(
+                fitBoardToScreen
+            );
+
+        }
+    );
+
 }
-    
+
+
+/* =========================
+   FIT BOARD TO SCREEN
+========================= */
+
+function fitBoardToScreen(){
+
+    if(
+        !gameScreen.classList.contains(
+            "active"
+        )
+    ){
+        return;
+    }
+
+
+    if(
+        !board.children.length
+    ){
+        return;
+    }
+
+
+    const rows =
+        board.children.length;
+
+
+    const columns =
+        wordLength;
+
+
+    const mobile =
+        window.innerWidth <= 600;
+
+
+    /*
+     * المساحة الأفقية المتاحة للمربعات.
+     */
+    const boardMaxWidth =
+        Math.min(
+            430,
+            gameScreen.clientWidth
+        );
+
+
+    /*
+     * موقع بداية اللوحة على الشاشة.
+     */
+    const boardTop =
+        board.getBoundingClientRect().top;
+
+
+    /*
+     * زر إعادة الإعداد الموجود بعد اللوحة.
+     */
+    const actions =
+        gameScreen.querySelector(
+            ".actions"
+        );
+
+
+    const actionsHeight =
+        actions
+            ? actions.getBoundingClientRect().height
+            : 43;
+
+
+    /*
+     * المسافة التي نتركها أسفل زر إعادة الإعداد.
+     */
+    const bottomSpace =
+        mobile
+            ? 8
+            : 14;
+
+
+    /*
+     * المساحة الرأسية الفعلية المتاحة للوحة.
+     */
+    const availableHeight =
+        Math.max(
+            80,
+            window.innerHeight -
+            boardTop -
+            actionsHeight -
+            bottomSpace
+        );
+
+
+    /*
+     * نبدأ بفجوة صغيرة عند كثرة الصفوف
+     * حتى لا تضيع المساحة على الفراغات.
+     */
+    let gap =
+        mobile
+            ? 4
+            : 8;
+
+
+    if(rows >= 12){
+        gap = mobile ? 2 : 4;
+    }
+
+    if(rows >= 17){
+        gap = 2;
+    }
+
+
+    /*
+     * حجم المربع حسب العرض.
+     */
+    const tileFromWidth =
+        (
+            boardMaxWidth -
+            gap * (columns - 1)
+        ) /
+        columns;
+
+
+    /*
+     * حجم المربع حسب الارتفاع.
+     */
+    const tileFromHeight =
+        (
+            availableHeight -
+            gap * (rows - 1)
+        ) /
+        rows;
+
+
+    /*
+     * نأخذ أصغر قيمة حتى يظل
+     * كل شيء داخل الشاشة.
+     */
+    const tileSize =
+        Math.max(
+            1,
+            Math.min(
+                tileFromWidth,
+                tileFromHeight
+            )
+        );
+
+
+    /*
+     * عرض اللوحة النهائي.
+     */
+    const finalWidth =
+        tileSize * columns +
+        gap * (columns - 1);
+
+
+    board.style.setProperty(
+        "--board-gap",
+        `${gap}px`
+    );
+
+
+    board.style.width =
+        `${Math.min(
+            finalWidth,
+            boardMaxWidth
+        )}px`;
+
+
+    /*
+     * تصغير حجم الخط تلقائيًا مع
+     * صغر المربعات، بدون تغيير تصميمه الأساسي.
+     */
+    const fontSize =
+        Math.max(
+            10,
+            Math.min(
+                34,
+                tileSize * .58
+            )
+        );
+
+
+    board.style.setProperty(
+        "--tile-font-size",
+        `${fontSize}px`
+    );
+
+
+    [
+        ...board.querySelectorAll(
+            ".tile"
+        )
+    ].forEach(
+        tile => {
+
+            tile.style.fontSize =
+                `${fontSize}px`;
+
+        }
+    );
+
+}
+
 
 /* =========================
    MAKE KEY
@@ -2756,6 +2992,7 @@ function evaluateGuess(
     return result;
 
 }
+
 
 /* =========================
    PAINT RESULT
@@ -3068,12 +3305,14 @@ function submitGuess(){
                     keyState =
                         {};
 
+
                     /*
                      * إصلاح مشكلة ID:
                      * تفريغ ID اللاعب السابق
                      * قبل بدء الكلمة الجديدة.
                      */
                     playerId.value = "";
+
 
                     buildBoard();
 
@@ -3082,6 +3321,7 @@ function submitGuess(){
                     setMessage(
                         "كلمة جديدة. أدخل ID الخاص بك ثم ابدأ بالتخمين."
                     );
+
 
                     /*
                      * إعطاء التركيز مباشرة لخانة ID
@@ -3153,12 +3393,14 @@ function submitGuess(){
                     keyState =
                         {};
 
+
                     /*
                      * إصلاح مشكلة ID:
                      * تفريغ ID اللاعب السابق
                      * قبل الانتقال للكلمة التالية.
                      */
                     playerId.value = "";
+
 
                     buildBoard();
 
@@ -3167,6 +3409,7 @@ function submitGuess(){
                     setMessage(
                         "ننتقل للكلمة التالية. أدخل ID اللاعب الجديد."
                     );
+
 
                     /*
                      * التركيز على خانة ID الجديدة.
@@ -3675,6 +3918,22 @@ document.addEventListener(
         setTimeout(
             () => ripple.remove(),
             600
+        );
+
+    }
+);
+
+
+/* =========================
+   RESIZE
+========================= */
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        requestAnimationFrame(
+            fitBoardToScreen
         );
 
     }
