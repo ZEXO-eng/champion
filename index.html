@@ -666,7 +666,7 @@ input:focus{
 
     flex-wrap:wrap;
 
-    margin-top:19px;
+    margin-top:14px;
 }
 
 .btn{
@@ -1251,6 +1251,421 @@ input:focus{
 }
 
 
+
+/* =========================
+   ROUND RESULT INTERACTION
+========================= */
+
+.round-modal{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .25s ease,visibility .25s ease;
+}
+
+.round-modal.show{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+}
+
+.round-modal-card{
+    position:relative;
+    width:min(430px,100%);
+    padding:30px 24px 22px;
+    border-radius:24px;
+    text-align:center;
+    background:linear-gradient(145deg,rgba(28,25,20,.98),rgba(9,9,8,.98));
+    border:1px solid rgba(255,255,255,.09);
+    box-shadow:0 35px 100px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.05);
+    transform:translateY(18px) scale(.94);
+    transition:transform .38s cubic-bezier(.2,.8,.2,1);
+    overflow:hidden;
+}
+
+.round-modal.show .round-modal-card{
+    transform:translateY(0) scale(1);
+}
+
+.round-modal-card::before{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    top:-145px;
+    left:50%;
+    transform:translateX(-50%);
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(199,168,90,.14),transparent 70%);
+    pointer-events:none;
+}
+
+.round-modal.success .round-modal-card{
+    border-color:rgba(106,190,132,.30);
+    box-shadow:0 35px 100px rgba(0,0,0,.65),0 0 45px rgba(73,156,102,.10),inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+.round-modal.failed .round-modal-card{
+    border-color:rgba(201,87,99,.24);
+}
+
+.round-modal-icon{
+    position:relative;
+    width:72px;
+    height:72px;
+    margin:0 auto 16px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    font-size:31px;
+    font-weight:900;
+    transform:scale(.55) rotate(-12deg);
+    opacity:0;
+}
+
+.round-modal.show .round-modal-icon{
+    animation:roundIconIn .55s cubic-bezier(.2,.9,.25,1.25) .08s forwards;
+}
+
+.round-modal.success .round-modal-icon{
+    color:#eaffef;
+    background:radial-gradient(circle at 35% 30%,rgba(168,208,182,.35),rgba(73,156,102,.18));
+    border:1px solid rgba(132,210,154,.45);
+    box-shadow:0 0 0 8px rgba(73,156,102,.045),0 0 34px rgba(73,156,102,.18);
+}
+
+.round-modal.failed .round-modal-icon{
+    color:#ffdfe2;
+    background:radial-gradient(circle at 35% 30%,rgba(201,87,99,.30),rgba(120,48,59,.16));
+    border:1px solid rgba(201,87,99,.38);
+    box-shadow:0 0 0 8px rgba(201,87,99,.035),0 0 30px rgba(201,87,99,.13);
+}
+
+@keyframes roundIconIn{
+    0%{opacity:0;transform:scale(.55) rotate(-12deg)}
+    65%{opacity:1;transform:scale(1.1) rotate(3deg)}
+    100%{opacity:1;transform:scale(1) rotate(0)}
+}
+
+.round-modal-title{
+    position:relative;
+    font-size:25px;
+    font-weight:900;
+    margin-bottom:8px;
+}
+
+.round-modal.success .round-modal-title{color:var(--green-light)}
+.round-modal.failed .round-modal-title{color:#efb4bb}
+
+.round-modal-text{
+    color:var(--text-soft);
+    font-size:13px;
+    line-height:1.9;
+    margin-bottom:16px;
+}
+
+.round-modal-answer{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:43px;
+    max-width:100%;
+    padding:8px 17px;
+    margin-bottom:20px;
+    border-radius:12px;
+    font-size:15px;
+    font-weight:900;
+    word-break:break-word;
+    border:1px solid rgba(226,200,120,.16);
+    background:rgba(199,168,90,.055);
+    color:var(--brand-light);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+.round-modal.success .round-modal-answer{
+    border-color:rgba(106,190,132,.25);
+    background:rgba(73,156,102,.065);
+    color:#ccebd5;
+}
+
+.round-modal.failed .round-modal-answer{
+    border-color:rgba(201,87,99,.22);
+    background:rgba(158,55,67,.055);
+    color:#e9b4ba;
+}
+
+.round-modal-btn{
+    width:100%;
+    min-height:48px;
+    border:1px solid rgba(132,210,154,.38);
+    border-radius:13px;
+    background:linear-gradient(145deg,rgba(73,156,102,.34),rgba(42,111,69,.20));
+    color:#eaffef;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 10px 28px rgba(0,0,0,.25);
+    transition:transform .16s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+
+.round-modal-btn:hover{
+    transform:translateY(-2px);
+    border-color:rgba(160,222,176,.62);
+    background:linear-gradient(145deg,rgba(83,174,113,.46),rgba(47,124,77,.28));
+    box-shadow:0 14px 34px rgba(0,0,0,.32),0 0 24px rgba(73,156,102,.12);
+}
+
+.round-modal-btn:active{
+    transform:translateY(1px) scale(.985);
+}
+
+.round-modal-hint{
+    margin-top:10px;
+    color:#666158;
+    font-size:10px;
+}
+
+.round-modal.show .round-modal-btn{
+    animation:roundButtonIn .45s ease .22s both;
+}
+
+@keyframes roundButtonIn{
+    from{opacity:0;transform:translateY(8px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+body.round-modal-open{
+    overflow:hidden;
+}
+
+@media(max-width:520px){
+    .round-modal{padding:14px}
+    .round-modal-card{padding:27px 18px 18px;border-radius:21px}
+    .round-modal-title{font-size:22px}
+}
+
+
+
+/* =========================
+   WORD NATURE OPTION
+========================= */
+
+.nature-option{
+    margin-top:11px;
+    padding:13px 14px;
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    background:rgba(255,255,255,.018);
+}
+
+.nature-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    cursor:pointer;
+}
+
+.nature-toggle-info{
+    min-width:0;
+}
+
+.nature-toggle-info strong{
+    display:block;
+    font-size:14px;
+    font-weight:800;
+    margin-bottom:3px;
+}
+
+.nature-toggle-info span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.55;
+}
+
+.nature-control{
+    display:flex;
+    align-items:center;
+    line-height:1;
+    gap:8px;
+    flex:0 0 auto;
+}
+
+.nature-control-label{
+    color:var(--muted);
+    font-size:10px;
+    font-weight:800;
+}
+
+.nature-switch{
+    position:relative;
+    flex:0 0 auto;
+    width:68px;
+    height:28px;
+    display:block;
+    padding:0;
+    border-radius:999px;
+    background:var(--surface-3);
+    border:1px solid var(--line-strong);
+    color:#8b8579;
+    font-family:inherit;
+    font-size:8px;
+    font-weight:900;
+    line-height:1;
+    overflow:hidden;
+    transition:
+        background .28s ease,
+        border-color .28s ease,
+        box-shadow .28s ease;
+}
+
+.nature-switch::before{
+    content:"إيقاف";
+    position:absolute;
+    top:50%;
+    right:7px;
+    transform:translateY(-50%);
+    width:32px;
+    text-align:center;
+    line-height:1;
+    white-space:nowrap;
+    z-index:1;
+    transition:
+        right .35s cubic-bezier(.22,1,.36,1),
+        left .35s cubic-bezier(.22,1,.36,1),
+        color .28s ease;
+}
+
+.nature-switch::after{
+    content:"";
+    position:absolute;
+    top:4px;
+    left:4px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#777166;
+    box-shadow:0 2px 7px rgba(0,0,0,.28);
+    z-index:2;
+    transition:
+        left .38s cubic-bezier(.22,1,.36,1),
+        right .38s cubic-bezier(.22,1,.36,1),
+        background .28s ease,
+        box-shadow .28s ease;
+}
+
+#natureEnabled:checked + .nature-switch{
+    background:rgba(199,168,90,.22);
+    border-color:rgba(226,200,120,.48);
+    color:var(--gold-light);
+    box-shadow:0 0 18px rgba(199,168,90,.10);
+}
+
+#natureEnabled:checked + .nature-switch::before{
+    content:"تشغيل";
+    right:auto;
+    left:7px;
+}
+
+#natureEnabled:checked + .nature-switch::after{
+    left:auto;
+    right:4px;
+    background:var(--gold-light);
+    box-shadow:0 0 11px rgba(226,200,120,.32);
+}
+
+.nature-input-wrap{
+    display:none;
+    margin-top:10px;
+}
+
+.nature-input-wrap.show{
+    display:block;
+    animation:natureInputIn .25s ease both;
+}
+
+.nature-input-wrap label{
+    display:block;
+    margin-bottom:7px;
+    font-size:11px;
+    color:var(--text-soft);
+    font-weight:700;
+}
+
+.nature-input-wrap input{
+    width:100%;
+    height:45px;
+    padding:0 13px;
+    border:1px solid var(--line-strong);
+    border-radius:var(--radius-md);
+    outline:none;
+    background:rgba(0,0,0,.2);
+    color:var(--text);
+    font-family:inherit;
+    font-size:13px;
+    transition:.2s ease;
+}
+
+.nature-input-wrap input:focus{
+    border-color:rgba(226,200,120,.45);
+    box-shadow:0 0 0 3px rgba(199,168,90,.06);
+}
+
+@keyframes natureInputIn{
+    from{opacity:0;transform:translateY(-5px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+/* =========================
+   WORD NATURE TITLE
+========================= */
+
+.word-nature-title{
+    display:none;
+    width:fit-content;
+    max-width:100%;
+    margin:8px auto 10px;
+    padding:7px 15px;
+    border:1px solid rgba(226,200,120,.20);
+    border-radius:12px;
+    background:linear-gradient(145deg,rgba(199,168,90,.09),rgba(255,255,255,.018));
+    color:var(--brand-light);
+    font-size:16px;
+    font-weight:900;
+    line-height:1.4;
+    text-align:center;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 8px 25px rgba(0,0,0,.18);
+}
+
+.word-nature-title.show{
+    display:block;
+    animation:natureTitleIn .45s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes natureTitleIn{
+    from{opacity:0;transform:translateY(-8px) scale(.97)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+@media(max-width:520px){
+    .nature-option{padding:14px}
+    .nature-toggle-info span{font-size:10px}
+    .word-nature-title{font-size:15px;padding:8px 13px}
+}
+
+
 /* =========================
    RESULT
 ========================= */
@@ -1479,6 +1894,55 @@ input:focus{
             )
             rotate(360deg)
             scale(.2);
+    }
+}
+
+
+/* =========================
+   FULL SCREEN WIN CONFETTI
+========================= */
+
+.win-confetti{
+    position:fixed;
+    top:-24px;
+    left:0;
+    width:10px;
+    height:17px;
+    border-radius:2px;
+    pointer-events:none;
+    z-index:10000;
+    opacity:0;
+    will-change:transform,opacity;
+    animation:
+        winConfettiFall
+        var(--fall-duration)
+        cubic-bezier(.18,.68,.25,1)
+        forwards;
+}
+
+@keyframes winConfettiFall{
+    0%{
+        opacity:0;
+        transform:
+            translate3d(0,-35px,0)
+            rotate(0deg)
+            scale(.75);
+    }
+
+    8%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:1;
+        transform:
+            translate3d(
+                var(--drift),
+                calc(100vh + 60px),
+                0
+            )
+            rotate(var(--rotation))
+            scale(1);
     }
 }
 
@@ -1756,6 +2220,55 @@ input:focus{
         </div>
 
 
+        <div class="nature-option">
+
+            <label class="nature-toggle" for="natureEnabled">
+
+                <span class="nature-toggle-info">
+                    <strong>طبيعة الكلمات</strong>
+                    <span>اختياري — فعّلها لإظهار طبيعة الكلمات كعنوان رئيسي أثناء اللعب.</span>
+                </span>
+
+                <span class="nature-control">
+
+                    <span class="nature-control-label">
+                        تفعيل
+                    </span>
+
+                    <span>
+                        <input
+                            id="natureEnabled"
+                            type="checkbox"
+                            hidden
+                        >
+                        <span class="nature-switch"></span>
+                    </span>
+
+                </span>
+
+            </label>
+
+            <div
+                id="natureInputWrap"
+                class="nature-input-wrap"
+            >
+                <label for="natureInput">
+                    طبيعة الكلمات
+                </label>
+
+                <input
+                    id="natureInput"
+                    type="text"
+                    maxlength="80"
+                    placeholder="مثال: أدوات منزلية"
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+            </div>
+
+        </div>
+
+
         <div class="notice">
 
             يمكنك استخدام كلمات بأطوال مختلفة،
@@ -1779,6 +2292,11 @@ input:focus{
         <h2>
             لعبة تخمين الكلمات
         </h2>
+
+        <div
+            id="wordNatureTitle"
+            class="word-nature-title"
+        ></div>
 
         <div
             id="progress"
@@ -1891,6 +2409,22 @@ input:focus{
 </div>
 
 
+
+<!-- =========================
+     ROUND RESULT MODAL
+========================= -->
+<div class="round-modal" id="roundModal" aria-hidden="true">
+    <div class="round-modal-card" role="dialog" aria-modal="true" aria-labelledby="roundModalTitle">
+        <div class="round-modal-icon" id="roundModalIcon">✓</div>
+        <div class="round-modal-title" id="roundModalTitle">إجابة صحيحة! 🎉</div>
+        <div class="round-modal-text" id="roundModalText">أحسنت! لقد تمكنت من حل الكلمة بنجاح.</div>
+        <div class="round-modal-answer" id="roundModalAnswer">الكلمة: -</div>
+        <button class="round-modal-btn" id="roundModalBtn" type="button">الانتقال للكلمة التالية ←</button>
+        <div class="round-modal-hint">اضغط للمتابعة إلى الجولة التالية</div>
+    </div>
+</div>
+
+
 <script>
 (() => {
 
@@ -1988,6 +2522,10 @@ let failedCount = 0;
 
 let winnerIDs = [];
 
+let wordNatureEnabled = false;
+
+let wordNature = "";
+
 
 /* =========================
    ELEMENTS
@@ -2026,6 +2564,41 @@ const playerId =
 
 const wordCount =
     $("wordCount");
+
+const natureEnabled =
+    $("natureEnabled");
+
+const natureInputWrap =
+    $("natureInputWrap");
+
+const natureInput =
+    $("natureInput");
+
+const wordNatureTitle =
+    $("wordNatureTitle");
+
+const roundModal =
+    $("roundModal");
+
+const roundModalCard =
+    roundModal.querySelector(
+        ".round-modal-card"
+    );
+
+const roundModalIcon =
+    $("roundModalIcon");
+
+const roundModalTitle =
+    $("roundModalTitle");
+
+const roundModalText =
+    $("roundModalText");
+
+const roundModalAnswer =
+    $("roundModalAnswer");
+
+const roundModalBtn =
+    $("roundModalBtn");
 
 
 /* =========================
@@ -2306,6 +2879,114 @@ function setMessage(
 
 
 /* =========================
+   WORD NATURE
+========================= */
+
+function updateNatureInput(){
+
+    natureInputWrap.classList.toggle(
+        "show",
+        natureEnabled.checked
+    );
+
+    if(
+        natureEnabled.checked
+    ){
+        setTimeout(
+            () => natureInput.focus(),
+            50
+        );
+    }
+
+}
+
+
+function updateWordNatureTitle(){
+
+    if(
+        wordNatureEnabled &&
+        wordNature
+    ){
+
+        wordNatureTitle.textContent =
+            wordNature;
+
+        wordNatureTitle.classList.add(
+            "show"
+        );
+
+    }else{
+
+        wordNatureTitle.textContent =
+            "";
+
+        wordNatureTitle.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+natureEnabled.addEventListener(
+    "change",
+    updateNatureInput
+);
+
+
+/* =========================
+   PLAYER ID INPUT
+========================= */
+
+playerId.addEventListener(
+    "input",
+    () => {
+
+        const clean =
+            playerId.value.replace(
+                /[^0-9-]/g,
+                ""
+            );
+
+        if(
+            playerId.value !== clean
+        ){
+            playerId.value = clean;
+        }
+
+    }
+);
+
+
+playerId.addEventListener(
+    "keydown",
+    event => {
+
+        const allowed =
+            event.ctrlKey ||
+            event.metaKey ||
+            event.altKey ||
+            [
+                "Backspace",
+                "Delete",
+                "ArrowLeft",
+                "ArrowRight",
+                "Home",
+                "End",
+                "Tab"
+            ].includes(event.key) ||
+            /^[0-9-]$/.test(event.key);
+
+        if(!allowed){
+            event.preventDefault();
+        }
+
+    }
+);
+
+
+/* =========================
    START GAME
 ========================= */
 
@@ -2393,6 +3074,28 @@ function startGame(){
     }
 
 
+    wordNatureEnabled =
+        natureEnabled.checked;
+
+    wordNature =
+        natureInput.value.trim();
+
+    if(
+        wordNatureEnabled &&
+        !wordNature
+    ){
+
+        alert(
+            "يرجى كتابة طبيعة الكلمات أو إلغاء تفعيل الخيار."
+        );
+
+        natureInput.focus();
+
+        return;
+
+    }
+
+
     words =
         entered.map(
             item => item.word
@@ -2442,6 +3145,8 @@ function startGame(){
 
 
     buildBoard();
+
+    updateWordNatureTitle();
 
     updateProgress();
 
@@ -3068,6 +3773,89 @@ function paintResult(result){
    WIN EFFECT
 ========================= */
 
+function createWinConfetti(){
+
+    const pieces = 110;
+
+    const colors = [
+        "#f5d76e",
+        "#f3a847",
+        "#e86f68",
+        "#72c6a8",
+        "#6fa8dc",
+        "#c58be8",
+        "#f2f2f2"
+    ];
+
+    for(
+        let i=0;
+        i<pieces;
+        i++
+    ){
+
+        const piece =
+            document.createElement("span");
+
+        piece.className =
+            "win-confetti";
+
+        const width =
+            6 +
+            Math.random() * 7;
+
+        const height =
+            9 +
+            Math.random() * 12;
+
+        piece.style.width =
+            `${width}px`;
+
+        piece.style.height =
+            `${height}px`;
+
+        piece.style.left =
+            `${Math.random() * 100}vw`;
+
+        piece.style.background =
+            colors[
+                Math.floor(
+                    Math.random() *
+                    colors.length
+                )
+            ];
+
+        piece.style.setProperty(
+            "--drift",
+            `${-150 + Math.random() * 300}px`
+        );
+
+        piece.style.setProperty(
+            "--rotation",
+            `${-720 + Math.random() * 1440}deg`
+        );
+
+        piece.style.setProperty(
+            "--fall-duration",
+            `${2.7 + Math.random() * 2.3}s`
+        );
+
+        piece.style.animationDelay =
+            `${Math.random() * .65}s`;
+
+        document.body.appendChild(
+            piece
+        );
+
+        setTimeout(
+            () => piece.remove(),
+            6000
+        );
+
+    }
+
+}
+
+
 function celebrateWin(){
 
     const row =
@@ -3080,6 +3868,18 @@ function celebrateWin(){
 
         row.classList.add(
             "word-solved"
+        );
+
+        row.animate(
+            [
+                {transform:"scale(1)"},
+                {transform:"scale(1.025)"},
+                {transform:"scale(1)"}
+            ],
+            {
+                duration:520,
+                easing:"cubic-bezier(.2,.8,.2,1)"
+            }
         );
 
 
@@ -3163,10 +3963,6 @@ function celebrateWin(){
         );
 
 
-        particle.style.animationDelay =
-            `${Math.random() * 120}ms`;
-
-
         document.body.appendChild(
             particle
         );
@@ -3174,12 +3970,181 @@ function celebrateWin(){
 
         setTimeout(
             () => particle.remove(),
-            1100
+            1000
         );
 
     }
 
+
+    createWinConfetti();
+
 }
+
+
+
+
+/* =========================
+   ROUND RESULT MODAL
+========================= */
+
+function openRoundModal(
+    success,
+    answer
+){
+
+    roundModal.classList.remove(
+        "success",
+        "failed"
+    );
+
+    roundModal.classList.add(
+        success ? "success" : "failed"
+    );
+
+    roundModalIcon.textContent =
+        success ? "✓" : "×";
+
+    roundModalTitle.textContent =
+        success
+            ? "إجابة صحيحة! 🎉"
+            : "انتهت محاولاتك";
+
+    roundModalText.textContent =
+        success
+            ? "أحسنت! لقد تمكنت من حل الكلمة بنجاح."
+            : "لقد استنفدت جميع محاولاتك لهذه الكلمة.";
+
+    roundModalAnswer.textContent =
+        success
+            ? `الكلمة: ${answer}`
+            : `الإجابة الصحيحة: ${answer}`;
+
+    roundModalBtn.textContent =
+        currentWordIndex <
+        words.length - 1
+            ? `الانتقال للكلمة ${currentWordIndex + 2} ←`
+            : "عرض النتيجة ←";
+
+    roundModal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    document.body.classList.add(
+        "round-modal-open"
+    );
+
+    requestAnimationFrame(
+        () => {
+            roundModal.classList.add(
+                "show"
+            );
+        }
+    );
+}
+
+
+function closeRoundModal(){
+
+    roundModal.classList.remove(
+        "show"
+    );
+
+    roundModal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    document.body.classList.remove(
+        "round-modal-open"
+    );
+}
+
+
+function continueAfterRound(){
+
+    closeRoundModal();
+
+    if(
+        currentWordIndex <
+        words.length - 1
+    ){
+
+        currentWordIndex++;
+
+        currentAttempt = 0;
+
+        attemptsLimit =
+            wordAttempts[
+                currentWordIndex
+            ];
+
+        wordLength =
+            getWordLength(
+                words[
+                    currentWordIndex
+                ]
+            );
+
+        keyState =
+            {};
+
+        playerId.value = "";
+
+        buildBoard();
+
+        updateProgress();
+
+        setMessage(
+            "كلمة جديدة. أدخل ID الخاص بك ثم ابدأ بالتخمين."
+        );
+
+        setTimeout(
+            () => playerId.focus(),
+            180
+        );
+
+    }else{
+
+        finishGame();
+
+    }
+
+}
+
+
+roundModalBtn.addEventListener(
+    "click",
+    continueAfterRound
+);
+
+
+roundModal.addEventListener(
+    "click",
+    event => {
+
+        if(
+            event.target ===
+            roundModal
+        ){
+
+            roundModalCard.animate(
+                [
+                    {transform:"translateX(0)"},
+                    {transform:"translateX(-7px)"},
+                    {transform:"translateX(7px)"},
+                    {transform:"translateX(-4px)"},
+                    {transform:"translateX(0)"}
+                ],
+                {
+                    duration:260
+                }
+            );
+
+        }
+
+    }
+);
 
 
 /* =========================
@@ -3278,69 +4243,7 @@ function submitGuess(){
         currentGuess = "";
 
 
-        setTimeout(
-            () => {
-
-                if(
-                    currentWordIndex <
-                    words.length - 1
-                ){
-
-                    currentWordIndex++;
-
-                    currentAttempt = 0;
-
-                    attemptsLimit =
-                        wordAttempts[
-                            currentWordIndex
-                        ];
-
-                    wordLength =
-                        getWordLength(
-                            words[
-                                currentWordIndex
-                            ]
-                        );
-
-                    keyState =
-                        {};
-
-
-                    /*
-                     * إصلاح مشكلة ID:
-                     * تفريغ ID اللاعب السابق
-                     * قبل بدء الكلمة الجديدة.
-                     */
-                    playerId.value = "";
-
-
-                    buildBoard();
-
-                    updateProgress();
-
-                    setMessage(
-                        "كلمة جديدة. أدخل ID الخاص بك ثم ابدأ بالتخمين."
-                    );
-
-
-                    /*
-                     * إعطاء التركيز مباشرة لخانة ID
-                     * الخاصة بالكلمة الجديدة.
-                     */
-                    setTimeout(
-                        () => playerId.focus(),
-                        150
-                    );
-
-                }else{
-
-                    finishGame();
-
-                }
-
-            },
-            1200
-        );
+                openRoundModal(true, answer);;
 
 
         return;
@@ -3366,68 +4269,7 @@ function submitGuess(){
         );
 
 
-        setTimeout(
-            () => {
-
-                if(
-                    currentWordIndex <
-                    words.length - 1
-                ){
-
-                    currentWordIndex++;
-
-                    currentAttempt = 0;
-
-                    attemptsLimit =
-                        wordAttempts[
-                            currentWordIndex
-                        ];
-
-                    wordLength =
-                        getWordLength(
-                            words[
-                                currentWordIndex
-                            ]
-                        );
-
-                    keyState =
-                        {};
-
-
-                    /*
-                     * إصلاح مشكلة ID:
-                     * تفريغ ID اللاعب السابق
-                     * قبل الانتقال للكلمة التالية.
-                     */
-                    playerId.value = "";
-
-
-                    buildBoard();
-
-                    updateProgress();
-
-                    setMessage(
-                        "ننتقل للكلمة التالية. أدخل ID اللاعب الجديد."
-                    );
-
-
-                    /*
-                     * التركيز على خانة ID الجديدة.
-                     */
-                    setTimeout(
-                        () => playerId.focus(),
-                        150
-                    );
-
-                }else{
-
-                    finishGame();
-
-                }
-
-            },
-            1400
-        );
+                openRoundModal(false, answer);;
 
     }else{
 
@@ -3613,6 +4455,14 @@ document.addEventListener(
     e => {
 
         if(
+            roundModal.classList.contains(
+                "show"
+            )
+        ){
+            return;
+        }
+
+        if(
             !gameScreen.classList.contains(
                 "active"
             )
@@ -3641,7 +4491,7 @@ document.addEventListener(
 
 
                     setMessage(
-                        `تم حفظ ID: ${playerId.value.trim()}`
+                        `اكتب تخمينًا من ${wordLength} أحرف.`
                     );
 
                 }else{
